@@ -4,9 +4,23 @@
   {% if user.is_authenticated %}
   <h2> Welcome back {{user.username}}, You have {{taskcount}} tasks to complete! </h2>
   <hr>
+  <h3>Do Next:</h3>
   {% for i in tasks %}
-    <p class="text-white">{{i.id}} | {{i.task_name}} - {{i.due_date}} {{i.due_time}} </p>
+  {% if forloop.counter < 2%}
+  <div class="task-container">
+    <p class="text-white inline-text" >{{i.id}} | {{i.task_name}} - </p>
+    <p id='nextexpiryDate' class="inline-text">{{i.due_date|date:"M d, Y"}} {{i.due_time|time:"H:i:s"}}</p>
+    <p id='nextdueTime' class="inline-text time-remaining"></p>
+  </div>
     <hr>
+    {%endif%}
+  {%endfor%}
+  <h3>Upcoming Tasks To Do</h3>
+  {% for i in tasks %}
+  {%if forloop.counter > 1 %}
+    <p class="text-white inline-text">{{i.id}} | {{i.task_name}} - {{i.due_date|date:"M d, Y"}} {{i.due_time|time:"H:i:s"}}</p>
+    <hr>
+    {%endif%}
   {%endfor%}
 </div>
 {%else%}
