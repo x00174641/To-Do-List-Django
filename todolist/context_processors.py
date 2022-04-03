@@ -1,6 +1,7 @@
 from .models import ToDoTask
-from django.shortcuts import get_object_or_404
 
 def todotasks(request):
-    tasks = ToDoTask.objects.all()
-    return dict(tasks=tasks)
+    if request.user.is_authenticated:
+        tasks = ToDoTask.objects.filter(author=request.user)
+        return dict(tasks=tasks)
+    return {}

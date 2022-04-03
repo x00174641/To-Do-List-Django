@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
+  <h2> Welcome back {{user.username}}, You have 0 tasks to complete! </h2>
+  <hr>
   {% for i in tasks %}
-    <p class="text-white">{{i.title}} - {{i.due}}</p>
+    <p class="text-white">{{i.id}} | {{i.task_name}} - {{i.due}}</p>
   {%endfor%}
+</div>
 {% endblock content %}
