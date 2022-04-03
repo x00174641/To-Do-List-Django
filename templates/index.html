@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
-  <h2> Welcome back {{user.username}}, You have 0 tasks to complete! </h2>
+  {% if user.is_authenticated %}
+  <h2> Welcome back {{user.username}}, You have {{taskcount}} tasks to complete! </h2>
   <hr>
   {% for i in tasks %}
-    <p class="text-white">{{i.id}} | {{i.task_name}} - {{i.due}}</p>
+    <p class="text-white">{{i.id}} | {{i.task_name}} - {{i.due_date}} {{i.due_time}} </p>
+    <hr>
   {%endfor%}
 </div>
+{%else%}
+  <h5>This is a simple to-do list website where you can keep track of your tasks! Please create an account or login to get started!</h5>
+  <a href="{% url 'login' %}"><button class="btn login-button">Login</button></a>
+  <a href="{% url 'signup' %}"><button class="btn signup-button">Signup</button></a>
+{%endif%}
 {% endblock content %}
