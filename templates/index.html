@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% for i in tasks %}
+    <p class="text-white">{{i.title}} - {{i.due}}</p>
+  {%endfor%}
+{% endblock content %}
