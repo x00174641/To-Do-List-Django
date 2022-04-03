@@ -6,7 +6,7 @@ from .models import ToDoTask
 
 class InputTypeDate(forms.DateInput):
     input_type = 'date'
-
+    
 class InputTypeTime(forms.TimeInput):
     input_type = 'time'
 
