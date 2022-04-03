@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #apps 
+    'accounts',
     'todolist',
     #imports
     'crispy_forms',
@@ -128,5 +129,10 @@ STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+LOGIN_REDIRECT = 'home'
+LOGOUT_REDIRECT = 'home'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL =  'accounts.CustomUser'

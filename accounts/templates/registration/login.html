@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+<div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
+        <p class="text-dark">You are already logged in!</p>
+        <center><a href="{% url 'home' %}" class="text-decoration-underline">To Home Page</a></center>
+    </div>
+</div>
+{% else %}
+<div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
+            <h2 class="text-white text-center">Log In</h2>
+            <hr>
+        <center><form method="post">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <center><button class="btn ml-4 login-button m-3" id="log-button" type="submit">Log In</button></center>
+        </form>
+        </center>
+    </div>
+</div>
+<br>
+{% endif %}
+{% endblock content %}
