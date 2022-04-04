@@ -39,44 +39,48 @@
   {%if taskcount == 0 %} 
   <p>Looks like you have no tasks available!</p>
   <a href="{% url 'task_new'%}"><button class="create-task-btn">Create Task</button></a>
-
-
+  <a href="{% url 'tasks_completed'%}"><button class="no-tasks-show-completed-tasks-btn">Show Completed Task</button></a>
   {%else%}
+  <div class="container text-white p-4"> 
   <h3>Do Next:</h3>
   {% for i in tasks %}
   {% if forloop.counter < 2%}
   <div class="task-container">
+  <hr>
     <p class="text-white inline-text" >{{i.id}} | {{i.task_name}} - </p>
     <p id='nextexpiryDate' class="inline-text">{{i.due_date|date:"M d, Y"}} {{i.due_date|time:"H:i:s"}}</p>
     <p id='nextdueTime' class="inline-text time-remaining"></p>
-    <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn">Mark As Completed</button></a>
-    <a href="{% url 'task_delete' i.id %}"><button class="delete-task-btn">Delete</button></a>
-    <a href="{% url 'task_update' i.id %}"><button class="update-task-btn">Update</button></a>
-    
   </div>
-    <hr>
+  <br>
+  <a href="{% url 'task_update' i.id %}"><button class="update-task-btn m-1">Update</button></a>
+  <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn m-1">Mark As Completed</button></a>
+</div>
     {%endif%}
   {%endfor%}
+  {% if taskcount == 1 %}
+  {%else%}
+  <div class="container text-white p-4"> 
   <h3>Upcoming Tasks To Do</h3>
   {% for i in tasks %}
   {%if forloop.counter > 1 %}
   {%if forloop.counter < 7 %}
   <div class="task-container">
-    <p class="text-white inline-text">{{i.id}} | {{i.task_name}} - {{i.due_date|date:"M d, Y"}} {{i.due_date|time:"H:i:s"}}</p>
-    <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn">Mark As Completed</button></a>
-    <a href="{% url 'task_delete' i.id %}"><button class="delete-task-btn">Delete</button></a>
-    <a href="{% url 'task_update' i.id %}"><button class="update-task-btn">Update</button></a>
-  </div>
     <hr>
+    <p class="text-white inline-text">{{i.id}} | {{i.task_name}} - {{i.due_date|date:"M d, Y"}} {{i.due_date|time:"H:i:s"}}</p>
+  </div>
     <br>
+    <a href="{% url 'task_update' i.id %}"><button class="update-task-btn m-1">Update</button></a>
+    <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn m-1">Mark As Completed</button></a>
     {%endif%}
     {%endif%}
   {%endfor%}
-  <a href="{% url 'tasks_completed' %}"><button class="btn btn-primary">Show Completed Tasks</button></a>
+</div>
+  {%endif%}
 </div>
 {%endif%}
 <div>
 </div>
+<a href="{% url 'tasks_completed' %}"><button class="btn btn-primary">Show Completed Tasks</button></a>
 {%else%}
   <h5>This is a simple to-do list website where you can keep track of your tasks! Please create an account or login to get started!</h5>
   <a href="{% url 'login' %}"><button class="btn login-button">Login</button></a>

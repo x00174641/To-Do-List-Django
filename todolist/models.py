@@ -8,7 +8,7 @@ class ToDoTask(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
-    
+    completed_time = models.DateTimeField(auto_now=True)
     class Meta:
         ordering = ('due_date',)
         
