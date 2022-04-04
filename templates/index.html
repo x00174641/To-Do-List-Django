@@ -1,16 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
+<script>
+  {% if messages %}
+  
+  {% for message in messages %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+      swal({
+      text: "{{ message }}",
+      icon: "error",
+      button: "Alright!",
+      confirmButtonColor: '#3085d6',
+      });
+  {%endif%}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+      swal({
+      text: "{{ message }}",
+      icon: "success",
+      button: "Alright!",
+      confirmButtonColor: '#3085d6',
+      });
+  {%endif%}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+  swal({
+  text: "{{ message }}",
+  icon: "warning",
+  button: "Alright!",
+  confirmButtonColor: '#3085d6',
+  });
+{%endif%}
+  {%endfor%}
+  
+  {%endif%}
+</script>
 <div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
   {% if user.is_authenticated %}
   <h2> Welcome back {{user.username}}, You have {{taskcount}} tasks to complete! </h2>
   <hr>
+  {%if taskcount == 0 %} 
+  <p>Looks like you have no tasks available!</p>
+  <a href="{% url 'task_new'%}"><button class="create-task-btn">Create Task</button></a>
+
+
+  {%else%}
   <h3>Do Next:</h3>
   {% for i in tasks %}
   {% if forloop.counter < 2%}
   <div class="task-container">
     <p class="text-white inline-text" >{{i.id}} | {{i.task_name}} - </p>
-    <p id='nextexpiryDate' class="inline-text">{{i.due_date|date:"M d, Y"}} {{i.due_time|time:"H:i:s"}}</p>
+    <p id='nextexpiryDate' class="inline-text">{{i.due_date|date:"M d, Y"}} {{i.due_date|time:"H:i:s"}}</p>
     <p id='nextdueTime' class="inline-text time-remaining"></p>
+    <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn">Mark As Completed</button></a>
+    <a href="{% url 'task_delete' i.id %}"><button class="delete-task-btn">Delete</button></a>
+    <a href="{% url 'task_update' i.id %}"><button class="update-task-btn">Update</button></a>
+    
   </div>
     <hr>
     {%endif%}
@@ -18,10 +60,22 @@
   <h3>Upcoming Tasks To Do</h3>
   {% for i in tasks %}
   {%if forloop.counter > 1 %}
-    <p class="text-white inline-text">{{i.id}} | {{i.task_name}} - {{i.due_date|date:"M d, Y"}} {{i.due_time|time:"H:i:s"}}</p>
+  {%if forloop.counter < 7 %}
+  <div class="task-container">
+    <p class="text-white inline-text">{{i.id}} | {{i.task_name}} - {{i.due_date|date:"M d, Y"}} {{i.due_date|time:"H:i:s"}}</p>
+    <a href="{% url 'task_mark_completed' i.id %}"><button class="delete-task-btn">Mark As Completed</button></a>
+    <a href="{% url 'task_delete' i.id %}"><button class="delete-task-btn">Delete</button></a>
+    <a href="{% url 'task_update' i.id %}"><button class="update-task-btn">Update</button></a>
+  </div>
     <hr>
+    <br>
+    {%endif%}
     {%endif%}
   {%endfor%}
+  <a href="{% url 'tasks_completed' %}"><button class="btn btn-primary">Show Completed Tasks</button></a>
+</div>
+{%endif%}
+<div>
 </div>
 {%else%}
   <h5>This is a simple to-do list website where you can keep track of your tasks! Please create an account or login to get started!</h5>

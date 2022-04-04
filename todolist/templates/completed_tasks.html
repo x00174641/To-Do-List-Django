@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
+    <h2>Completed Tasks</h2>
+    {%for i in tasks_completed%}
+    <hr>
+    <p>{{i.id}} | {{i.task_name}}</p>
+    <a href="{% url 'reverse_task_completed' i.id %}"><button class="delete-task-btn">Reverse Action</button></a>
+
+    <hr>
+    {%endfor%}
+</div>
+{% endblock content %}

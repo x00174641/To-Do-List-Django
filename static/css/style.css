@@ -5,7 +5,10 @@ body {
 /* h1,h2,h3,h4,h5,h6 {
    
 } */
-
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
 .signup-button {
     background-color: #03DAC6;
     font-weight: bold;
@@ -31,4 +34,59 @@ body {
 
 .time-remaining {
     color: #03DAC6;
+}
+
+.create-task-btn {
+    color: #ffffff;
+    border: 1px solid #03DAC5;
+    background-color: #212529;
+    padding: 10px 20px;
+}
+
+.create-task-btn:hover {
+    border: 1px solid #1964cc;
+}
+
+.update-task-btn {
+    color: #ffffff;
+    border: 1px solid #03DAC5;
+    background-color: #212529;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-top: -10px;
+    float:right;
+}
+.delete-task-btn {
+    color: #ffffff;
+    border: 1px solid #03DAC5;
+    background-color: #212529;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-top: -10px;
+    float:right;
+}
+.swal-modal {
+    background-color: #212529;
+    border: 2px solid white;
+  }
+.swal-text {
+    color: #fff;
+  }
+.swal-button {
+    padding: 11px 22px;
+    border-radius: 2px;
+    background-color: #212529;
+    font-size: 15px;
+    border: 1px solid #03DAC5;
+    color: #fff;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+    margin-right: 11.2em;
+}
+.swal-button:hover {
+    border: 1px solid #1964cc !important;
+    background-color: #212529 !important;
+    transition: 0.6s;
+}
+.swal-icon--success::before,.swal-icon--success__hide-corners,.swal-icon--success::after {
+    background-color: #212529;
 }

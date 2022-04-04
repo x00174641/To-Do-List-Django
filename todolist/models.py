@@ -6,11 +6,11 @@ from django.contrib.auth import get_user_model
 class ToDoTask(models.Model):
     task_name = models.CharField(max_length=30)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    due_date = models.DateField()
-    due_time = models.TimeField()
-
+    due_date = models.DateTimeField()
+    completed = models.BooleanField(default=False)
+    
     class Meta:
-        ordering = ('due_date','due_time',)
+        ordering = ('due_date',)
         
     def __str__(self):
         return self.task_name 
