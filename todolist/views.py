@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ToDoTask
 from django.contrib import messages
 from django.utils import timezone
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 @login_required
 def TaskCreateView(request):
@@ -64,7 +64,9 @@ def MarkTaskAsCompleted(request,id):
 @login_required
 def TasksCompleted(request):
     tasks_completed = ToDoTask.objects.filter(author=request.user,completed=True)
-    return render(request,'completed_tasks.html', {'tasks_completed': tasks_completed})
+    tasks_completed_count = ToDoTask.objects.filter(author=request.user,completed=True)
+
+    return render(request,'completed_tasks.html', {'tasks_completed': tasks_completed,'task_comp_count': tasks_completed_count})
 
 @login_required
 def ReverseACompletedTask(request,id):

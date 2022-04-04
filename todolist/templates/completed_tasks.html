@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load humanize %}
 <div class="container bg-dark text-white p-4 my-3 border rounded-top rounded-bottom"> 
-    <h2>Completed Tasks</h2>
+    <h2>{{task_comp_count.count }} Completed Tasks</h2>
+    {% if task_comp_count.count == 0 %} 
+    <h4>You currently have no tasks completed! Finish your tasks or create some tasks!</h4>
+    <a href="{% url 'task_new'%}"><button class="create-task-btn">Create Task</button></a>
+    <a href="{% url 'home'%}"><button class="create-task-btn">Return to to-do list</button></a>
+    {%endif%}
     {%for i in tasks_completed%}
+    <div class="task-container">
     <hr>
-    <p>{{i.id}} | {{i.task_name}}</p>
-    <a href="{% url 'reverse_task_completed' i.id %}"><button class="delete-task-btn">Reverse Action</button></a>
-
-    <hr>
+    <br>
+    <p class="inline-text">{{i.id}} | {{i.task_name}} - Completed: {{i.completed_time|naturaltime}}</p>
+    </div>
+    <br>
+    <a href="{% url 'reverse_task_completed' i.id %}"><button class="delete-task-btn m-1">Reverse Action</button></a>
+    <a href="{% url 'task_delete' i.id %}"><button class="delete-task-btn m-1">Delete</button></a>
     {%endfor%}
 </div>
 {% endblock content %}
