@@ -4,14 +4,11 @@ from .models import ToDoTask
 
 # Create your views here.
 
-class InputTypeDate(forms.DateInput):
-    input_type = 'date'
+class InputTypeDate(forms.DateTimeInput):
+    input_type = 'datetime-local'
     
-class InputTypeTime(forms.TimeInput):
-    input_type = 'time'
-
 class ToDoTaskForm(ModelForm):
     class Meta:
         model = ToDoTask
-        fields = ('task_name','due_date','due_time')
-        widgets = {'due_date': InputTypeDate(),'due_time': InputTypeTime}
+        fields = ('task_name','due_date')
+        widgets = {'due_date': InputTypeDate()}
